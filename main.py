@@ -1,41 +1,60 @@
 #!/usr/bin/python3
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import sqlite3
 from tkinter import *
 
+
 def connect_db():
     connection = sqlite3.connect('db.db')
-    cursor = connection.cursor() 
+    cursor = connection.cursor()
     return connection, cursor
 
-#definition of menubar button
+
+# definition of menubar button
 def new():
     print("new")
+
+
 def import_file():
     print("import")
+
+
 def export_file():
     print("export")
+
+
 def delete():
     print("delete")
+
+
 def save():
     print("save")
+
+
 def save_as():
     print("save_as")
 
+
 def zoom():
     print("zoom")
+
+
 def unzoom():
     print("dézoomer")
+
+
 def search():
     print("search")
+
 
 def documentation():
     print("doc")
 
-#affichage des clients
+
+# affichage des clients
 def display_customer_array():
-    #FrameArray.pack_forget()
-    #FrameArray.grid_forget()
+    # FrameArray.pack_forget()
+    # FrameArray.grid_forget()
     connection, cursor = connect_db()
     for i in range(1, 10, 2):
         Label(FrameArray, text='|').grid(row=0, column=i)
@@ -55,12 +74,13 @@ def display_customer_array():
         for data in customer:
             Label(FrameArray, text=data).grid(row=i, column=j)
             Label(FrameArray, text='|').grid(row=i, column=k)
-            j+=2
-            k+=2
-        i+=1
+            j += 2
+            k += 2
+        i += 1
     connection.close()
 
-#affichage des vêtements 
+
+# affichage des vêtements
 def display_clothe_array():
     connection, cursor = connect_db()
     for i in range(1, 11, 2):
@@ -82,12 +102,13 @@ def display_clothe_array():
         for data in customer:
             Label(root, text=data).grid(row=i, column=j)
             Label(root, text='|').grid(row=i, column=k)
-            j+=2
-            k+=2
-        i+=1
+            j += 2
+            k += 2
+        i += 1
     connection.close()
 
-#Configuration menu
+
+# Configuration menu
 def config_menu():
     menubar = Menu(root)
 
@@ -107,22 +128,23 @@ def config_menu():
     menu3 = Menu(menubar, tearoff=0)
     menu3.add_command(label='Mode d\'emploi', command=documentation)
 
-    menubar.add_cascade(label='Fichier', menu= menu1)
+    menubar.add_cascade(label='Fichier', menu=menu1)
     menubar.add_cascade(label='Outils', menu=menu2)
     menubar.add_cascade(label='Aide', menu=menu3)
     return menubar
 
-#main
+
+# main
 # Construction de la fenêtre principale
 root = Tk()
 root.title('SHCS')
 
 # Création des frames
 
-    # frame bouton à gauche
+# frame bouton à gauche
 FrameButton = Frame(root)
 FrameButton.pack(side=LEFT)
-    # frame tableau à droite
+# frame tableau à droite
 FrameArray = Frame(root)
 FrameArray.pack(side=RIGHT)
 
@@ -130,10 +152,7 @@ Button(FrameButton, text="Clothe", relief=GROOVE, command=display_clothe_array).
 Button(FrameButton, text='Customer', relief=GROOVE, command=display_customer_array).grid(row=1, column=0)
 
 display_customer_array()
-#display_clothe_array()
+# display_clothe_array()
 
 root.config(menu=config_menu())
 root.mainloop()
-
-
-
